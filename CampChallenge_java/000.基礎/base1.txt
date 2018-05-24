@@ -1,0 +1,6 @@
+パソコンのスペック
+      os       : Windows
+      CPU      : intel Core-i7 27.0GHz
+      RAM      : 8.00GB
+システムの種類 : 64ビット
+      HDD      : 930GB
