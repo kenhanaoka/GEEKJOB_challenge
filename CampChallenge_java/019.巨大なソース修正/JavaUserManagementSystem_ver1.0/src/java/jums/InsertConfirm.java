@@ -34,23 +34,26 @@ public class InsertConfirm extends HttpServlet {
                 throw new Exception("不正なアクセスです");
             }
             
+            //課題3.beansに値を格納//
+            DataBeans db = DataBeans.getInstance();
+            
             //フォームからの入力を取得
-            String name = request.getParameter("name");
-            String year = request.getParameter("year");
-            String month = request.getParameter("month");
-            String day = request.getParameter("day");
-            String type = request.getParameter("type");
-            String tell = request.getParameter("tell");
-            String comment = request.getParameter("comment");
-
+            db.setName(request.getParameter("name"));
+            db.setTell(request.getParameter("tell"));
+            db.setComment(request.getParameter("comment"));
+            db.setYear(Integer.parseInt(request.getParameter("year"))); 
+            db.setMonth(Integer.parseInt(request.getParameter("month"))); 
+            db.setDay(Integer.parseInt(request.getParameter("day"))); 
+            db.setType(Integer.parseInt(request.getParameter("type"))); 
+                       
             //セッションに格納
-            session.setAttribute("name", name);
-            session.setAttribute("year", year);
-            session.setAttribute("month",month);
-            session.setAttribute("day", day);
-            session.setAttribute("type", type);
-            session.setAttribute("tell", tell);
-            session.setAttribute("comment", comment);
+            session.setAttribute("name", db.getName());
+            session.setAttribute("year", db.getYear());
+            session.setAttribute("month",db.getMonth());
+            session.setAttribute("day", db.getDay());
+            session.setAttribute("type", db.getType());
+            session.setAttribute("tell", db.getTell());
+            session.setAttribute("comment", db.getComment());
             System.out.println("Session updated!!");
             
             request.getRequestDispatcher("/insertconfirm.jsp").forward(request, response);

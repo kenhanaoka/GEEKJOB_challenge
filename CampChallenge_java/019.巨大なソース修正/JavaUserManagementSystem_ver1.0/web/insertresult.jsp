@@ -17,5 +17,9 @@
         電話番号:<%= hs.getAttribute("tell")%><br>
         自己紹介:<%= hs.getAttribute("comment")%><br>
         以上の内容で登録しました。<br>
+        <%--課題1:トップへのリンク--%>
+        <footer>
+            <%out.print(jums.JumsHelper.getInstance().home());%>
+        </footer>        
     </body>
 </html>

@@ -33,17 +33,28 @@ public class InsertResult extends HttpServlet {
         HttpSession session = request.getSession();
         
         try{
+            //課題2:直リンク防止処理
+            request.setCharacterEncoding("UTF-8");//セッションに格納する文字コードをUTF-8に変更
+            String accesschk = request.getParameter("ac");
+            if(accesschk ==null || (Integer)session.getAttribute("ac")!=Integer.parseInt(accesschk)){
+                throw new Exception("不正なアクセスです");
+            } 
+            //課題3:beasからDBに値を格納
             //ユーザー情報に対応したJavaBeansオブジェクトに格納していく
+            DataBeans db = DataBeans.getInstance();
             UserDataDTO userdata = new UserDataDTO();
-            userdata.setName((String)session.getAttribute("name"));
+            userdata.setName(db.getName());
+            //課題6.生年月日DB格納の修正//
             Calendar birthday = Calendar.getInstance();
+            birthday.set(db.getYear(),db.getMonth(),db.getDay());
             userdata.setBirthday(birthday.getTime());
-            userdata.setType(Integer.parseInt((String)session.getAttribute("type")));
-            userdata.setTell((String)session.getAttribute("tell"));
-            userdata.setComment((String)session.getAttribute("comment"));
+            userdata.setType(db.getType());
+            userdata.setTell(db.getTell());
+            userdata.setComment(db.getComment());
             
             //DBへデータの挿入
             UserDataDAO .getInstance().insert(userdata);
+            
             
             request.getRequestDispatcher("/insertresult.jsp").forward(request, response);
         }catch(Exception e){

@@ -9,4 +9,8 @@
         エラーが発生しました。以下の項目を確認してください。<br>
         <%=request.getAttribute("error")%>
     </body>
+    <%--課題1:トップへのリンク--%>
+    <footer>
+        <%out.print(jums.JumsHelper.getInstance().home());%>
+    </footer>
 </html>
