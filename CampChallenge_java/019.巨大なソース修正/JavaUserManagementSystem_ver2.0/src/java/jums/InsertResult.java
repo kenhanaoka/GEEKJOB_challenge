@@ -40,13 +40,17 @@ public class InsertResult extends HttpServlet {
             }
             
             UserDataBeans udb = (UserDataBeans)session.getAttribute("udb");
+            System.out.print(udb.getComment());
             
             //DTOオブジェクトにマッピング。DB専用のパラメータに変換
             UserDataDTO userdata = new UserDataDTO();
             udb.UD2DTOMapping(userdata);
+            UserDataDAO .getInstance().CountUserID(userdata);
+            
             
             //DBへデータの挿入
             UserDataDAO .getInstance().insert(userdata);
+            
             
             //成功したのでセッションの値を削除
             session.invalidate();

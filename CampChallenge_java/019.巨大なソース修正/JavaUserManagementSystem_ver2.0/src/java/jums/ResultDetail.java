@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,13 +30,15 @@ public class ResultDetail extends HttpServlet {
 
             //DTOオブジェクトにマッピング。DB専用のパラメータに変換
             UserDataDTO searchData = new UserDataDTO();
-            searchData.setUserID(2);
-
-            UserDataDTO resultData = UserDataDAO .getInstance().searchByID(searchData);
-            request.setAttribute("resultData", resultData);
-            
+            //修正:userIDをクエリストリングから取得
+            searchData.setUserID(Integer.parseInt(request.getParameter("id")));
+            UserDataDTO resultData = UserDataDAO.getInstance().searchByID(searchData);
+            //セッションに詳細検索結果を格納
+            HttpSession hs = request.getSession();
+            hs.setAttribute("resultData", resultData);
             request.getRequestDispatcher("/resultdetail.jsp").forward(request, response);  
-        }catch(Exception e){
+            
+        }catch (Exception e){
             //何らかの理由で失敗したらエラーページにエラー文を渡して表示。想定は不正なアクセスとDBエラー
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/error.jsp").forward(request, response);

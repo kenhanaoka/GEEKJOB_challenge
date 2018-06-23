@@ -9,6 +9,7 @@ import java.util.Calendar;
  * DTOへの変換メソッド、入力チェックリストを出力するメソッドも準備されている←ちょっと仕事しすぎかも
  * @author hayashi-s
  */
+
 public class UserDataBeans implements Serializable{
     private String name;
     private int year;
@@ -31,6 +32,7 @@ public class UserDataBeans implements Serializable{
     public String getName() {
         return name;
     }
+    
     public void setName(String name) {
         //空文字(未入力)の場合空文字をセット
         if(name.trim().length()==0){
@@ -134,7 +136,7 @@ public class UserDataBeans implements Serializable{
         
         return chkList;
     }
-
+    
     public void UD2DTOMapping(UserDataDTO udd){
         udd.setName(this.name);
         if(this.year != 0 || this.month != 0 || this.day != 0){

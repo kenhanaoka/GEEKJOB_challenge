@@ -1,8 +1,10 @@
-<%@page import="jums.JumsHelper"
-        import="jums.UserDataDTO" %>
+<%@page import="jums.JumsHelper" %>
+<%@page import="jums.UserDataDTO"%> 
+<%@page import="javax.servlet.http.HttpSession" %>
 <%
     JumsHelper jh = JumsHelper.getInstance();
-    UserDataDTO udd = (UserDataDTO)request.getAttribute("resultData");
+    HttpSession hs =request.getSession();
+    UserDataDTO udd = (UserDataDTO)hs.getAttribute("resultData");
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

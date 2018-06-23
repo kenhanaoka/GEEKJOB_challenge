@@ -1,8 +1,9 @@
 <%@page import="jums.JumsHelper"
-        import="jums.UserDataDTO" %>
+        import="jums.UserDataDTO"
+        import="java.util.ArrayList" %>
 <%
     JumsHelper jh = JumsHelper.getInstance();
-    UserDataDTO udd = (UserDataDTO)request.getAttribute("resultData");
+    ArrayList<UserDataDTO> udd = (ArrayList<UserDataDTO>)request.getAttribute("resultData");
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +14,7 @@
     </head>
     <body>
         <h1>検索結果</h1>
+        <%for(int i = 0; i < udd.size();i++) { %>
         <table border=1>
             <tr>
                 <th>名前</th>
@@ -21,12 +23,14 @@
                 <th>登録日時</th>
             </tr>
             <tr>
-                <td><a href="ResultDetail?id=<%= udd.getUserID()%>"><%= udd.getName()%></a></td>
-                <td><%= udd.getBirthday()%></td>
-                <td><%= udd.getType()%></td>
-                <td><%= udd.getNewDate()%></td>
+                    <td><a href="ResultDetail?id=<%= udd.get(i).getUserID()%>"><%= udd.get(i).getName()%></a></td>
+                        <td><%= udd.get(i).getBirthday()%></td>
+                        <td><%= udd.get(i).getType()%></td>
+                        <td><%= udd.get(i).getNewDate()%></td>
             </tr>
+            <br>
         </table>
+        <% } %>
     </body>
     <%=jh.home()%>
 </html>
