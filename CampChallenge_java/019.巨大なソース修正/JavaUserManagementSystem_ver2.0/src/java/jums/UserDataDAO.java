@@ -61,13 +61,13 @@ public class UserDataDAO {
      * @return 検索結果
      */
     
-    //修正：検索をArrayListに格納する
+    //修正：検索したレコード複数のををArrayListで返す
     public ArrayList<UserDataDTO> search(UserDataDTO ud) throws SQLException{
         Connection con = null;
         PreparedStatement st = null;
         try{
             con = DBManager.getConnection();
-    //名前，誕生月，職業条件検索，条件指定がなければ全件検索        
+    //名前，誕生月，種別のLIKE検索，指定がなければ（空文字，null，0ならば）全件検索
             String sql = "SELECT * FROM user_t";
             boolean flag = false;
             if (!ud.getName().equals("")) {
@@ -91,7 +91,7 @@ public class UserDataDAO {
             }
             st =  con.prepareStatement(sql);
             
-            //検索条件により場合分け
+            //修正：検索条件の数によりSQLを変更するための場合分け
             if(!ud.getName().equals("")) {
                 st.setString(1, "%"+ud.getName()+"%");
                 
@@ -156,9 +156,10 @@ public class UserDataDAO {
     /**
      * ユーザーIDによる1件のデータの検索処理を行う。
      * @param ud 対応したデータを保持しているJavaBeans
-     * @throws SQLException 呼び出し元にcatchさせるためにスロー 
+     * @throws SQLException 呼び出し元にcatchさせるためにスロー
      * @return 検索結果
      */
+    //userIDによりユーザー情報を検索する
     public UserDataDTO searchByID(UserDataDTO ud) throws SQLException{
         Connection con = null;
         PreparedStatement st = null;
@@ -226,7 +227,7 @@ public class UserDataDAO {
         }
 
     }
-    
+    //指定されたuserIDをもつレコードを更新
     public UserDataDTO update(UserDataDTO ud) throws SQLException{
         Connection con = null;
         PreparedStatement st = null;

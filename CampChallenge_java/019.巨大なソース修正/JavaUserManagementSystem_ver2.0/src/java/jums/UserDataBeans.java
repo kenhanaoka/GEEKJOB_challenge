@@ -109,7 +109,7 @@ public class UserDataBeans implements Serializable{
             this.comment = comment;
         }
     }
-    
+    //入力漏れがあるものをチェックリストに追加してリストを返す
     public ArrayList<String> chkproperties(){
         ArrayList<String> chkList = new ArrayList<String>();
         if(this.name.equals("")){
@@ -136,7 +136,7 @@ public class UserDataBeans implements Serializable{
         
         return chkList;
     }
-    
+    //JavaBeansからDTOにマッピング（userID以外）
     public void UD2DTOMapping(UserDataDTO udd){
         udd.setName(this.name);
         if(this.year != 0 || this.month != 0 || this.day != 0){
